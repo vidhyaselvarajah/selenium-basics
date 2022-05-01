@@ -1,3 +1,4 @@
+import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -14,27 +15,20 @@ public class jquery {
 		WebDriver driver=new ChromeDriver();
 		driver.get("https://www.jqueryscript.net/demo/Drop-Down-Combo-Tree/");
 		driver.findElement(By.xpath("//input[@id='justAnInputBox']")).click();
-		Thread.sleep(3000);
-		//selectChoice(driver,"choice 3");
-		//selectChoice(driver,"choice 1","choice 2 2","choice 4","choice 6");
-		selectChoice(driver,"all");
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		//Thread.sleep(3000);
+		//selectChoice(driver, "choice 3");
+		selectChoice(driver,"choice 1","choice 2 2","choice 4","choice 6","choice 6 2 3");
+		//selectChoice(driver,"all");
 
 	}
-
-
-public static void selectChoice(WebDriver driver,String... value)
+ public static void selectChoice(WebDriver driver, String... value)
 {
-	List<WebElement> choices=driver.findElements(By.xpath("//div[@id='comboTree381159DropDownContainer']/ul//li"));
-	System.out.println(choices.size());
-	if(value[0].equals("all"))
-	{
-		for(WebElement item:choices)
-		{
-			item.click();
-			break;
-		}
-	}
-		else 
+	List<WebElement> choices=driver.findElements(By.xpath("//body/div[2]/div[1]/div[1]/div[1]/div[2]/ul[1]/li//span"));
+	System.out.println("Size is : " + choices.size());
+	System.out.println("value is : " + value[0]);
+	if(!value[0].equals("all"))
+	
 		{
 		for(WebElement item:choices)
 		{
@@ -49,8 +43,23 @@ public static void selectChoice(WebDriver driver,String... value)
 			}
 		}
 		}
+	else
+	{
+		try
+		{
+		for(WebElement item:choices)
+		{
+			item.click();
+			break;
+		}
+		}
+		catch(Exception e)
+		{
+		}
+		}
+	}
 	
 }
-}
+
 
 
